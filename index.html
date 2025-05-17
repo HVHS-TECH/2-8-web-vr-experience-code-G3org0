@@ -1,89 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Codespace Github</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
-    <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
-    <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
-    <script src="https://rawgit.com/donmccurdy/aframe-extras/v2.1.1/dist/aframe-extras.loaders.min.js"></script>
-    <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.1/dist/aframe-physics-system.min.js"></script>
-</head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Codespace Github</title>
+        <link href="index.css" rel="stylesheet" type="text/css" />
+        <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
+        <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+        <script src="https://rawgit.com/donmccurdy/aframe-extras/v2.1.1/dist/aframe-extras.loaders.min.js"></script>
+        <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.1/dist/aframe-physics-system.min.js"></script>
+    </head>
 
-<body>
-    <a-scene physics="gravity: -9.8;restitution: 0.1" inspector-plugin-recast>
-
-        <a-assets>
-            <!-- Ground Texture -->
-            <img id="groundTexture" src="models/">
-        </a-assets>
-        
-        <a-sphere 
-        color="red" 
-        radius="0.5" 
-        position="000.1 5 -3"
-        dynamic-body="mass: 100; bounciness: 0.8"
-        shadow>
-        </a-sphere>
-
-        <a-sphere 
-        color="red" 
-        radius="0.5" 
-        position="0 3 -3"
-        dynamic-body="mass: 1; bounciness: 0.8"
-        shadow>
-        </a-sphere>
-
-        <!-- Ground Plane -->
-        <a-plane 
-        src="#groundTexture" 
-        rotation="-90 0 0" 
-        scale="60 60 60"
-        static-body
-        shadow>
-    </a-plane>
-  
-        <!-- blue_freddy -->
-        <a-gltf-model 
-        src="models/blue_freddy.glb" 
-        position="0 4 5" 
-        scale="4, 0.5 0.5"
-        rotation="-30 180 0"
-        animation="property: rotation; to: -30 -180 0; loop: true; dur: 800; easing: linear"></a-gltf-model>>
-        
-        <a-gltf-model 
-        src="models/blue_freddy.glb" 
-        position="0 0 -20" 
-        scale="10, 10 10" 
-        rotation="-30 180 0"
-        ></a-gltf-model>        
-
-        <a-gltf-model 
-        src="navmesh (1).gltf" 
-        nav-mesh
-        position="0 0 0" 
-        rotation = "0 0 0"
-        ></a-gltf-model>        
-
-
-        <a-box src="#groundTexture" rotation="0 0 0" scale="10 10 1" position = "0 5 2" nav-mesh ></a-box>
-
-        <a-cylinder rotation="0 0 0" scale="10 10 10" position = "30 5 -2" nav-mesh ></a-cylinder>
-
-    <!-- Lighting -->
-    <a-light type="directional" position="2 4 3" intensity="1"></a-light>
-    <a-light type="ambient" intensity="1"></a-light>
-    
-    <!-- Camera -->
-    <a-entity id="rig" position="0 0 0" movement-controls="constrainToNavMesh: true;speed:0.5;">
-        <a-entity camera id="camera" position="0 1.6 0" look-controls
-          extended-wasd-controls>
-        </a-entity>
-      </a-entity>
-  
-  
-    </a-scene>
-</body>
+    <body>
+         <img id="bg" src="backGround.png" alt = "homeBg"> 
+    </body>
 </html>
