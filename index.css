@@ -14,22 +14,11 @@
  }
 
  #title {
-  left: 10%;  
-  top: 25%;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  padding: 10px 20px;
   font-size: 56px;
-  color: #ffdc91;
-  background-color: transparent;
-  outline: none;
-  border: 8px;
-  border-radius: 8px;
-  cursor: pointer;
  }
 
  .overlapButton {
-  left: 10%;
+  left: 25%;
   display: block;
   position: absolute;
   transform: translate(-50%, -50%);

@@ -12,7 +12,69 @@
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.1/dist/aframe-physics-system.min.js"></script>
 </head>
 
+
 <body>
+
+    <!--<button id = "overlapButton" style= "top: 21.5%;" onclick= "window.location.href = '/index.html'" >X</button> -->
+
+    <a-scene physics="gravity: -9.8;restitution: 0.1" inspector-plugin-recast>
+
+        <a-assets>
+            <!-- Ground Texture -->
+            <img id="groundText" src="/files/Gothic.jpg">
+            <img id="skyTexture" src="/files/Gothic.jpg">
+            <a-asset-item id="wall1" src="/files/mazeParts/wall1.glb"></a-asset-item>
+        </a-assets>
+        
+        <a-sphere 
+        color="red" 
+        radius="0.5" 
+        position="000.1 5 -3"
+        dynamic-body="mass: 100; "
+        shadow>
+        </a-sphere>
+
+        <a-sphere 
+        color="red" 
+        radius="0.5" 
+        position="0 3 -3"
+        dynamic-body="mass: 1; "
+        shadow>
+        </a-sphere>
+
+        <!-- Ground Plane --
+        <a-plane 
+        src="#groundText" 
+        rotation="-90 0 0" 
+        scale="60 60 60"
+        static-body
+        shadow>
+        </a-plane>
+    -->
+        <!-- Test -->
+        <a-gltf-model 
+        src="#wall1" 
+        position = "0 0 0" 
+        rotation = "90 0 0"
+        scale = "1 1 1"
+        ></a-gltf-model>       
+             
+
+    <!-- Lighting -->
+    <a-light type="directional" position="2 4 3" intensity="1"></a-light>
+    <a-light type="ambient" intensity="1"></a-light>
+    <a-sky src="#skyTexture"></a-sky>    
+    <!-- Camera -->
+    <a-entity id="rig" position="0 0 0" movement-controls="constrainToNavMesh: true;speed:0.5;">
+        <a-entity camera id="camera" position="0 1.6 0" look-controls
+          extended-wasd-controls>
+        </a-entity>
+      </a-entity>
+  
+  
+    </a-scene>
+
+     <script src="game.js"></script>
 
 </body>
 
