@@ -1,6 +1,7 @@
 
 let wallCords = 6
 
+<<<<<<< HEAD
 let scale = {
   xMult: 1, 
   yMult: 0.9090900177208052, 
@@ -13,6 +14,13 @@ const wallPlacment = ([
     [3, 4], 
     [5, 6], 
     [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, ]
+=======
+
+const wallPlacment = ([
+    [1, 2], 
+    [3, 4], 
+    [5, 6]
+>>>>>>> ceca66a (Add moudulers walls, doing coed)
 ]);
 
 console.log(wallPlacment.length)
@@ -26,6 +34,7 @@ window.addEventListener('DOMContentLoaded', () => {
 function createWalls(){
     for (let row = 0; row < wallPlacment.length; row++){
         for (let coloumn = 0; coloumn < wallPlacment[row].length; coloumn++ ){
+<<<<<<< HEAD
             let rot = false;
             if ((row/2) % 1 == 0.5){
                 rot = true;
@@ -33,6 +42,9 @@ function createWalls(){
             
             //console.log(wallPlacment[row][coloumn])
             createWall(wallPlacment[row][coloumn], row)
+=======
+            createWall(coloumn, row)
+>>>>>>> ceca66a (Add moudulers walls, doing coed)
             //console.log(row)
            // console.log(wallPlacment[row]);
         }
@@ -41,6 +53,7 @@ function createWalls(){
 }
 
     
+<<<<<<< HEAD
 function createWall(xCord, zCord){
     //console.log("runnin createWall");
     const WALL = document.createElement('a-gltf-model');
@@ -57,6 +70,18 @@ function createWall(xCord, zCord){
 
 
 //const model = document.querySelector('#wallingAway');
+=======
+function createWall(xCord, yCord){
+    console.log("runnin createWall");
+    const WALL = document.createElement('a-gltf-model');
+    WALL.setAttribute('src','#wall1');
+    WALL.setAttribute('position', `${xCord} 0 ${yCord}`);
+    console.log(WALL);
+    SCENE.appendChild(WALL);
+}
+
+//const model = document.querySelector('#wall1');
+>>>>>>> ceca66a (Add moudulers walls, doing coed)
 //
 //model.addEventListener('model-loaded', () => {
 //  const mesh = model.getObject3D('mesh');
@@ -67,6 +92,9 @@ function createWall(xCord, zCord){
 //  box.getSize(size);
 //
 //  console.log('Model size:', size); // size.x, size.y, size.z
+<<<<<<< HEAD
 //  console.log(12 / size.x)
 //  console.log(2 / size.y)
+=======
+>>>>>>> ceca66a (Add moudulers walls, doing coed)
 //});
