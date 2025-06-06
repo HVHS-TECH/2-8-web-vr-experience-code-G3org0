@@ -1,7 +1,6 @@
 
 let wallCords = 6
 
-<<<<<<< HEAD
 let scale = {
   xMult: 1, 
   yMult: 0.9090900177208052, 
@@ -10,20 +9,36 @@ let scale = {
   yPlac: 2}
 
 const wallPlacment = ([
-    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, ], 
-    [3, 4], 
-    [5, 6], 
-    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, ]
-=======
-
-const wallPlacment = ([
-    [1, 2], 
-    [3, 4], 
-    [5, 6]
->>>>>>> ceca66a (Add moudulers walls, doing coed)
+    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 
+    [1, 11], 
+    [2, 3, 4, 5, 6, 9], 
+    [1, 2, 4, 5, 7, 8, 9, 11], 
+    [2, 5, 9, 10],
+    [1, 5, 6, 8, 10, 11], 
+    [1, 2, 4, 6, 7],
+    [1, 6, 9, 11],
+    [2, 3, 4, 5, 7, 8, 9],
+    [1, 2, 4, 7, 9, 11],
+    [3, 4, 5, 6, 7, 10],
+    [1, 6, 11],
+    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,]
 ]);
 
-console.log(wallPlacment.length)
+const PillerPlacment = ([
+    [1, 11], 
+    [1, 11], 
+    [2, 3, 4, 5, 6, 9], 
+    [1, 2, 4, 5, 7, 8, 9, 11], 
+    [2, 5, 9, 10],
+    [1, 5, 6, 8, 10, 11], 
+    [1, 2, 4, 6, 7],
+    [1, 6, 9, 11],
+    [2, 3, 4, 5, 7, 8, 9],
+    [1, 2, 4, 7, 9, 11],
+    [3, 4, 5, 6, 7, 10],
+    [1, 6, 11],
+    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,]
+]);
 
 const SCENE = document.querySelector('a-scene');
 
@@ -34,17 +49,13 @@ window.addEventListener('DOMContentLoaded', () => {
 function createWalls(){
     for (let row = 0; row < wallPlacment.length; row++){
         for (let coloumn = 0; coloumn < wallPlacment[row].length; coloumn++ ){
-<<<<<<< HEAD
-            let rot = false;
+            let rotationVal = 0;
             if ((row/2) % 1 == 0.5){
-                rot = true;
+                rotationVal = 90;
             }
             
             //console.log(wallPlacment[row][coloumn])
-            createWall(wallPlacment[row][coloumn], row)
-=======
-            createWall(coloumn, row)
->>>>>>> ceca66a (Add moudulers walls, doing coed)
+            createWall((wallPlacment[row][coloumn] - (0.5*scale.xPlac)), (row  - (0.25*scale.xPlac)), rotationVal)
             //console.log(row)
            // console.log(wallPlacment[row]);
         }
@@ -53,13 +64,17 @@ function createWalls(){
 }
 
     
-<<<<<<< HEAD
-function createWall(xCord, zCord){
+function createWall(xCord, zCord, rotationVal){
     //console.log("runnin createWall");
     const WALL = document.createElement('a-gltf-model');
+    if (rotationVal == 0){
+        WALL.setAttribute('position', `${xCord*scale.xPlac} 100 ${zCord*scale.xPlac*0.5}`);
+    } else {
+        WALL.setAttribute('position', `${(xCord-0.5)*scale.xPlac} 100 ${zCord*scale.xPlac*0.5}`);
+    }
     WALL.setAttribute('src','#wall1');
-    WALL.setAttribute('position', `${xCord*scale.xPlac} 0 ${zCord*scale.xPlac}`);
     WALL.setAttribute('scale', `${scale.xMult} ${scale.yMult} ${scale.zMult}`);
+    WALL.setAttribute('rotation', `0 ${rotationVal}  0`);
     SCENE.appendChild(WALL);
 }
 
@@ -70,18 +85,6 @@ function createWall(xCord, zCord){
 
 
 //const model = document.querySelector('#wallingAway');
-=======
-function createWall(xCord, yCord){
-    console.log("runnin createWall");
-    const WALL = document.createElement('a-gltf-model');
-    WALL.setAttribute('src','#wall1');
-    WALL.setAttribute('position', `${xCord} 0 ${yCord}`);
-    console.log(WALL);
-    SCENE.appendChild(WALL);
-}
-
-//const model = document.querySelector('#wall1');
->>>>>>> ceca66a (Add moudulers walls, doing coed)
 //
 //model.addEventListener('model-loaded', () => {
 //  const mesh = model.getObject3D('mesh');
@@ -92,9 +95,6 @@ function createWall(xCord, yCord){
 //  box.getSize(size);
 //
 //  console.log('Model size:', size); // size.x, size.y, size.z
-<<<<<<< HEAD
 //  console.log(12 / size.x)
 //  console.log(2 / size.y)
-=======
->>>>>>> ceca66a (Add moudulers walls, doing coed)
 //});
