@@ -7,43 +7,37 @@ let scale = {
   zMult: 0.9999998437456502,
   xPlac: 12,
   yPlac: 2}
-
-const wallPlacment = ([
-    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 
-    [1, 11], 
-    [2, 3, 4, 5, 6, 9], 
-    [1, 2, 4, 5, 7, 8, 9, 11], 
-    [2, 5, 9, 10],
-    [1, 5, 6, 8, 10, 11], 
-    [1, 2, 4, 6, 7],
-    [1, 6, 9, 11],
-    [2, 3, 4, 5, 7, 8, 9],
-    [1, 2, 4, 7, 9, 11],
-    [3, 4, 5, 6, 7, 10],
-    [1, 6, 11],
-    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,]
+  
+  const wallPlacment = ([
+     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
+     [0, 1, 1, 1, 1, 1, 0, 0, 1, 0], 
+    [1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1], 
+     [0, 1, 0, 0, 1, 0, 0, 0, 1, 1], 
+    [1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1], 
+     [1, 1, 0, 1, 0, 1, 1, 0, 0, 0], 
+    [1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1], 
+     [0, 1, 1, 1, 1, 0, 1, 1, 1, 0], 
+    [1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1], 
+     [0, 0, 1, 1, 1, 1, 1, 0, 0, 0], 
+    [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1], 
+     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
 ]);
 
 const PillerPlacment = ([
-    [1, 11], 
-    [1, 11], 
-    [2, 3, 4, 5, 6, 9], 
-    [1, 2, 4, 5, 7, 8, 9, 11], 
-    [2, 5, 9, 10],
-    [1, 5, 6, 8, 10, 11], 
-    [1, 2, 4, 6, 7],
-    [1, 6, 9, 11],
-    [2, 3, 4, 5, 7, 8, 9],
-    [1, 2, 4, 7, 9, 11],
-    [3, 4, 5, 6, 7, 10],
-    [1, 6, 11],
-    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,]
+    [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1], 
+    [1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1], 
+    [1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1], 
+    [1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1], 
+    [1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1], 
+    [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1], 
 ]);
 
 const SCENE = document.querySelector('a-scene');
 
 window.addEventListener('DOMContentLoaded', () => {
     createWalls(); 
+    createPillers(); 
 });
 
 function createWalls(){
@@ -52,30 +46,64 @@ function createWalls(){
             let rotationVal = 0;
             if ((row/2) % 1 == 0.5){
                 rotationVal = 90;
+            } 
+            if (wallPlacment[row][coloumn] == 1){
+                createWall((coloumn), (row), rotationVal)
             }
-            
+        }
+    }
+}
+
+function createPillers(){
+    for (let row = 0; row < (wallPlacment.length + 1)/2; row++){
+        console.log("Max Row :  " + (wallPlacment.length + 1)/2)
+        for (let coloumn = 0; coloumn < wallPlacment[row*2].length; coloumn++ ){
+            console.log("Max coloumn :  " + wallPlacment[row*2].length)
+
+            //Smth funcky eith rows
+            if(wallPlacment[FindOddsRev(row, row != 0)][FindOddsRev(coloumn, coloumn != 0)] == 1){
+                createPiller(coloumn, row);
+                //console.log("please be ten")
+                }
             //console.log(wallPlacment[row][coloumn])
-            createWall((wallPlacment[row][coloumn] - (0.5*scale.xPlac)), (row  - (0.25*scale.xPlac)), rotationVal)
             //console.log(row)
            // console.log(wallPlacment[row]);
         }
     }
-    //createWall(wallCords, 0); 
 }
 
+//function createPillerParameters (row, coloumn) {}
+
+function FindOddsRev (x, y){
+    if (y == true){
+        return x*2
+    } else {
+        return 0
+    }
+}
     
 function createWall(xCord, zCord, rotationVal){
     //console.log("runnin createWall");
     const WALL = document.createElement('a-gltf-model');
     if (rotationVal == 0){
-        WALL.setAttribute('position', `${xCord*scale.xPlac} 100 ${zCord*scale.xPlac*0.5}`);
+        WALL.setAttribute('position', `${xCord*scale.xPlac} -70 ${zCord*scale.xPlac*0.5}`);
     } else {
-        WALL.setAttribute('position', `${(xCord-0.5)*scale.xPlac} 100 ${zCord*scale.xPlac*0.5}`);
+        WALL.setAttribute('position', `${(xCord-0.5)*scale.xPlac} -70 ${zCord*scale.xPlac*0.5}`);
     }
     WALL.setAttribute('src','#wall1');
     WALL.setAttribute('scale', `${scale.xMult} ${scale.yMult} ${scale.zMult}`);
     WALL.setAttribute('rotation', `0 ${rotationVal}  0`);
     SCENE.appendChild(WALL);
+}
+
+function createPiller(xCord, zCord){
+    console.log("Y 5 THO")
+    //console.log(xCord, zCord);
+    const PILLER = document.createElement('a-gltf-model');
+    PILLER.setAttribute('position', `${(xCord)*scale.xPlac} -50 ${zCord*scale.xPlac}`);
+    PILLER.setAttribute('src','#piller');
+    PILLER.setAttribute('scale', `${scale.xMult} ${scale.yMult} ${scale.zMult}`);
+    SCENE.appendChild(PILLER);
 }
 
 

@@ -24,6 +24,7 @@
             <img id="groundText" src="/files/Gothic.jpg">
             <img id="skyTexture" src="/files/Gothic.jpg">
             <a-asset-item id="wall1" src="/files/mazeParts/wall1.glb"></a-asset-item>
+            <a-asset-item id="piller" src="/files/mazeParts/piller.glb"></a-asset-item>
         </a-assets>
         
         <a-sphere 
@@ -50,13 +51,10 @@
         static-body
         shadow>
         </a-plane>
-    -->
-        <!-- Test -->
+    --
+        <-- Test --
         <a-gltf-model 
-<<<<<<< HEAD
         id="wallingAway"
-=======
->>>>>>> ceca66a (Add moudulers walls, doing coed)
         src="#wall1" 
         position = "0 0 0" 
         rotation = "90 0 0"
@@ -64,7 +62,7 @@
         ></a-gltf-model>       
              
 
-    <!-- Lighting -->
+    <-- Lighting -->
     <a-light type="directional" position="2 4 3" intensity="1"></a-light>
     <a-light type="ambient" intensity="1"></a-light>
     <a-sky src="#skyTexture"></a-sky>    
