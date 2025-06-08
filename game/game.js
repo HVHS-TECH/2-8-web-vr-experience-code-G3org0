@@ -57,14 +57,13 @@ function createWalls(){
 function createPillers(){
     for (let row = 0; row < (wallPlacment.length + 1)/2; row++){
         console.log("Max Row :  " + (wallPlacment.length + 1)/2)
-        for (let coloumn = 0; coloumn < wallPlacment[row*2].length; coloumn++ ){
-            console.log("Max coloumn :  " + wallPlacment[row*2].length)
+        for (let coloumn = 0; coloumn < wallPlacment[0].length + 1; coloumn++ ){
+            //console.log("Max coloumn :  " + wallPlacment[row*2].length)
 
             //Smth funcky eith rows
-            if(wallPlacment[FindOddsRev(row, row != 0)][FindOddsRev(coloumn, coloumn != 0)] == 1){
                 createPiller(coloumn, row);
                 //console.log("please be ten")
-                }
+                
             //console.log(wallPlacment[row][coloumn])
             //console.log(row)
            // console.log(wallPlacment[row]);
@@ -81,14 +80,22 @@ function FindOddsRev (x, y){
         return 0
     }
 }
+
+function shouldReturn(x, y){
+    if (y = true){
+        return x
+    } else {
+        return 0
+    }
+}
     
 function createWall(xCord, zCord, rotationVal){
     //console.log("runnin createWall");
     const WALL = document.createElement('a-gltf-model');
     if (rotationVal == 0){
-        WALL.setAttribute('position', `${xCord*scale.xPlac} -70 ${zCord*scale.xPlac*0.5}`);
+        WALL.setAttribute('position', `${xCord*scale.xPlac} -50 ${zCord*scale.xPlac*0.5}`);
     } else {
-        WALL.setAttribute('position', `${(xCord-0.5)*scale.xPlac} -70 ${zCord*scale.xPlac*0.5}`);
+        WALL.setAttribute('position', `${(xCord-0.5)*scale.xPlac} -50 ${zCord*scale.xPlac*0.5}`);
     }
     WALL.setAttribute('src','#wall1');
     WALL.setAttribute('scale', `${scale.xMult} ${scale.yMult} ${scale.zMult}`);
@@ -100,7 +107,7 @@ function createPiller(xCord, zCord){
     console.log("Y 5 THO")
     //console.log(xCord, zCord);
     const PILLER = document.createElement('a-gltf-model');
-    PILLER.setAttribute('position', `${(xCord)*scale.xPlac} -50 ${zCord*scale.xPlac}`);
+    PILLER.setAttribute('position', `${(xCord - 0.5)*scale.xPlac} -50 ${zCord*scale.xPlac}`);
     PILLER.setAttribute('src','#piller');
     PILLER.setAttribute('scale', `${scale.xMult} ${scale.yMult} ${scale.zMult}`);
     SCENE.appendChild(PILLER);
