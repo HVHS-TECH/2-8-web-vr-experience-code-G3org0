@@ -25,6 +25,7 @@
             <img id="skyTexture" src="/files/Gothic.jpg">
             <a-asset-item id="wall1" src="/files/mazeParts/wall1.glb"></a-asset-item>
             <a-asset-item id="piller" src="/files/mazeParts/piller.glb"></a-asset-item>
+            <a-asset-item id = "frog" src = "/files/frog_statue.glb"></a-asset-item>
         </a-assets>
         
         <a-sphere 
@@ -52,17 +53,16 @@
         shadow>
         </a-plane>
     --
-        <-- Test --
+        <-- Test -->
         <a-gltf-model 
-        id="wallingAway"
-        src="#wall1" 
+        src="#frog" 
         position = "0 0 0" 
-        rotation = "90 0 0"
+        rotation = "0 0 0"
         scale = "1 1 1"
         ></a-gltf-model>       
              
 
-    <-- Lighting -->
+    <!-- Lighting -->
     <a-light type="directional" position="2 4 3" intensity="1"></a-light>
     <a-light type="ambient" intensity="1"></a-light>
     <a-sky src="#skyTexture"></a-sky>    

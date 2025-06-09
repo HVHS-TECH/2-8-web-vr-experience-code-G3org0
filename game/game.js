@@ -7,30 +7,27 @@ let scale = {
   zMult: 0.9999998437456502,
   xPlac: 12,
   yPlac: 2}
+
+let globalShift = {
+    x: 60,
+    z: 65,
+    y: 0
+}
   
   const wallPlacment = ([
      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
-     [0, 1, 1, 1, 1, 1, 0, 0, 1, 0], 
+     [0, 1, 1, 1, 1, 1, 0, 0, 1, 1], 
     [1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1], 
-     [0, 1, 0, 0, 1, 0, 0, 0, 1, 1], 
+     [0, 1, 0, 0, 1, 0, 0, 0, 0, 0], 
     [1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1], 
-     [1, 1, 0, 1, 0, 1, 1, 0, 0, 0], 
+     [1, 1, 0, 1, 0, 1, 1, 0, 0, 1], 
     [1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1], 
      [0, 1, 1, 1, 1, 0, 1, 1, 1, 0], 
     [1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1], 
      [0, 0, 1, 1, 1, 1, 1, 0, 0, 0], 
-    [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1], 
+    [1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1], 
      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
-]);
-
-const PillerPlacment = ([
-    [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1], 
-    [1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1], 
-    [1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1], 
-    [1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1], 
-    [1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1], 
-    [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1], 
 ]);
 
 const SCENE = document.querySelector('a-scene');
@@ -38,6 +35,7 @@ const SCENE = document.querySelector('a-scene');
 window.addEventListener('DOMContentLoaded', () => {
     createWalls(); 
     createPillers(); 
+    createFrogs(); 
 });
 
 function createWalls(){
@@ -58,44 +56,22 @@ function createPillers(){
     for (let row = 0; row < (wallPlacment.length + 1)/2; row++){
         console.log("Max Row :  " + (wallPlacment.length + 1)/2)
         for (let coloumn = 0; coloumn < wallPlacment[0].length + 1; coloumn++ ){
-            //console.log("Max coloumn :  " + wallPlacment[row*2].length)
-
-            //Smth funcky eith rows
-                createPiller(coloumn, row);
-                //console.log("please be ten")
-                
-            //console.log(wallPlacment[row][coloumn])
-            //console.log(row)
-           // console.log(wallPlacment[row]);
+            createPiller(coloumn, row);
         }
     }
 }
 
-//function createPillerParameters (row, coloumn) {}
-
-function FindOddsRev (x, y){
-    if (y == true){
-        return x*2
-    } else {
-        return 0
-    }
-}
-
-function shouldReturn(x, y){
-    if (y = true){
-        return x
-    } else {
-        return 0
-    }
-}
+function createFrogs(){
     
+}
+
 function createWall(xCord, zCord, rotationVal){
     //console.log("runnin createWall");
     const WALL = document.createElement('a-gltf-model');
     if (rotationVal == 0){
-        WALL.setAttribute('position', `${xCord*scale.xPlac} -50 ${zCord*scale.xPlac*0.5}`);
+        WALL.setAttribute('position', `${xCord*scale.xPlac-globalShift.x} ${globalShift.y} ${zCord*scale.xPlac*0.5-globalShift.z}`);
     } else {
-        WALL.setAttribute('position', `${(xCord-0.5)*scale.xPlac} -50 ${zCord*scale.xPlac*0.5}`);
+        WALL.setAttribute('position', `${(xCord-0.5)*scale.xPlac-globalShift.x} ${globalShift.y} ${zCord*scale.xPlac*0.5-globalShift.z}`);
     }
     WALL.setAttribute('src','#wall1');
     WALL.setAttribute('scale', `${scale.xMult} ${scale.yMult} ${scale.zMult}`);
@@ -107,14 +83,11 @@ function createPiller(xCord, zCord){
     console.log("Y 5 THO")
     //console.log(xCord, zCord);
     const PILLER = document.createElement('a-gltf-model');
-    PILLER.setAttribute('position', `${(xCord - 0.5)*scale.xPlac} -50 ${zCord*scale.xPlac}`);
+    PILLER.setAttribute('position', `${(xCord - 0.5)*scale.xPlac-globalShift.x} globalShift.y ${zCord*scale.xPlac-globalShift.z}`);
     PILLER.setAttribute('src','#piller');
     PILLER.setAttribute('scale', `${scale.xMult} ${scale.yMult} ${scale.zMult}`);
     SCENE.appendChild(PILLER);
 }
-
-
-
 
 
 
