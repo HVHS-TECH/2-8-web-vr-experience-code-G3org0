@@ -17,7 +17,7 @@
 
     <!--<button id = "overlapButton" style= "top: 21.5%;" onclick= "window.location.href = '/index.html'" >X</button> -->
 
-    <a-scene physics="gravity: -9.8;restitution: 0.1" inspector-plugin-recast>
+    <a-scene restitution: 0.1" inspector-plugin-recast>
 
         <a-assets>
             <!-- Ground Texture -->
@@ -32,7 +32,6 @@
         color="red" 
         radius="0.5" 
         position="000.1 5 -3"
-        dynamic-body="mass: 100; "
         shadow>
         </a-sphere>
 
@@ -40,12 +39,12 @@
         color="red" 
         radius="0.5" 
         position="0 3 -3"
-        dynamic-body="mass: 1; "
         shadow>
-        </a-sphere>
-
-        <!-- Ground Plane --
-        <a-plane 
+    </a-sphere>
+    
+    <!-- Ground Plane --
+    <a-plane 
+    dynamic-body="mass: 1; "
         src="#groundText" 
         rotation="-90 0 0" 
         scale="60 60 60"
@@ -68,7 +67,10 @@
     <a-sky src="#skyTexture"></a-sky>    
     <!-- Camera -->
     <a-entity id="rig" position="0 0 0" movement-controls="constrainToNavMesh: true;speed:0.5;">
-        <a-entity camera id="camera" position="0 1.6 0" look-controls
+        
+        <a-sphere id = "detectionBox" color="red" radius="1" position="0 1 -0" shadow></a-sphere>
+
+        <a-entity camera id="camera" position="0 1.6 3" look-controls
           extended-wasd-controls>
         </a-entity>
       </a-entity>
