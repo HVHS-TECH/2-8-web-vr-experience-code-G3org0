@@ -21,33 +21,65 @@ let globalShift = {
     [1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1], 
      [0, 1, 0, 0, 1, 0, 0, 0, 0, 0], 
     [1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1], 
-     [1, 1, 0, 1, 0, 1, 1, 0, 0, 1], 
+    [1, 1, 0, 1, 0, 1, 1, 0, 0, 1], 
     [1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1], 
-     [0, 1, 1, 1, 1, 0, 1, 1, 1, 0], 
+    [0, 1, 1, 1, 1, 0, 1, 1, 1, 0], 
     [1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1], 
-     [0, 0, 1, 1, 1, 1, 1, 0, 0, 0], 
+    [0, 0, 1, 1, 1, 1, 1, 0, 0, 0], 
     [1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1], 
-     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
 ]);
 
 const FrogPlacment = ([
-     [1,1,0], 
-     [1,4,0], 
-     [2.5,9,0], 
-     [4,3,0],
-     [4.5,2.5,180],
-     [4.5,6,0],
-
+    [1,1,0], 
+    [1,4,0], 
+    [2.5,9,0], 
+    [4,3,0],
+    [4.5,2.5,180],
+    [4.5,6,0],
 ]);
 
+var frogCounter = 0
 const SCENE = document.querySelector('a-scene');
-const BOX = document.querySelector('#detectionBox');
+const FROGCOUNTER = document.querySelector('#frogCounter');
 
 window.addEventListener('DOMContentLoaded', () => {
-    createWalls(); 
+    //createWalls(); 
     createPillers(); 
     createFrogs(); 
+    setupListeners()
 });
+
+function setupListeners() {
+    const FROGS = SCENE.querySelectorAll('.clickable');
+    console.log(FROGS)
+    FROGS.forEach(frog => frog.addEventListener('click', FrogClicked));
+}
+
+function FrogClicked(evt) {
+    var frog = evt.target
+    var frogRotation = (frog.getAttribute('rotation'))
+    console.log(frogRotation)
+    frogCounter ++;
+    FROGCOUNTER.setAttribute('value', "Frogs: " + frogCounter + "/" + FrogPlacment.length);
+    console.log(frogRotation)
+    frog.setAttribute('animation', {
+        property: 'scale',
+        to: '0, 0, 0',
+        dur: 300,
+        easing: 'easeInOutQuad',
+        property: 'rotation',
+        to: '-90, -180, frogRotation.z',
+        dur: 300,
+        easing: 'easeInOutQuad',
+
+    });
+    setTimeout(() => {
+        console.log("clicked ")
+        SCENE.removeChild(frog);
+        frog.destroy()
+    }, 350);
+}
 
 function createWalls(){
     for (let row = 0; row < wallPlacment.length; row++){
@@ -62,6 +94,7 @@ function createWalls(){
         }
     }
 }
+
 function createWall(xCord, zCord, rotationVal){
     const WALL = document.createElement('a-gltf-model');
     if (rotationVal == 0){
@@ -97,17 +130,18 @@ function createFrogs(){
     }
 }
 function createFrog(xCord, zCord, rotationVal){
-    const FROG = document.createElement('a-gltf-model');
+    const FROG = document.createElement('a-entity');
+    FROG.setAttribute('gltf-model', '#frog');
     FROG.setAttribute('position', `${(xCord - 0.5)*scale.xPlac-globalShift.x} ${0} ${zCord*scale.xPlac-globalShift.z}`);
-    FROG.setAttribute('src','#frog');
     FROG.setAttribute('rotation', `0 ${rotationVal}  0`);
     FROG.setAttribute('scale','1 1 1');
+    FROG.setAttribute('class', 'clickable')
+    FROG.addEventListener('click', FrogClicked);
     SCENE.appendChild(FROG);
 }
 
-if (BOX.x == null){
-    console.log("aaa")
-}
+
+
 
 //const model = document.querySelector('#wallingAway');
 //
