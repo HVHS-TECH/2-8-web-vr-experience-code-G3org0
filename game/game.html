@@ -31,7 +31,8 @@
         <!-- Camera -->
         <a-entity id="rig" position="0 0 0" movement-controls="constrainToNavMesh: true;speed:0.5;">
             <a-entity camera id="camera" position="0 1.6 3" look-controls extended-wasd-controls>
-                <a-text value="Frogs: 0/6" position="0.7 0.7 -1" color="white" id="frogCounter"></a-text>
+                <a-text value="Frogs: 0/6" position = "0.7 0.7 -1" color="white" id="frogCounter"></a-text>
+                <a-text value="Time: 0" position="-1.7 0.7 -1" color="white" id="timer"></a-text>
                 <a-cursor fuse="false" raycaster= "objects: .clickable" ></a-cursor>
             </a-entity>
         </a-entity>

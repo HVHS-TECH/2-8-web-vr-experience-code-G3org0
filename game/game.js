@@ -15,11 +15,11 @@ let globalShift = {
 }
   
   const wallPlacment = ([
-     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
-     [0, 1, 1, 1, 1, 1, 0, 0, 1, 1], 
+    [0, 1, 1, 1, 1, 1, 0, 0, 1, 1], 
     [1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1], 
-     [0, 1, 0, 0, 1, 0, 0, 0, 0, 0], 
+    [0, 1, 0, 0, 1, 0, 0, 0, 0, 0], 
     [1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1], 
     [1, 1, 0, 1, 0, 1, 1, 0, 0, 1], 
     [1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1], 
@@ -39,21 +39,46 @@ const FrogPlacment = ([
     [4.5,6,0],
 ]);
 
-var frogCounter = 0
 const SCENE = document.querySelector('a-scene');
 const FROGCOUNTER = document.querySelector('#frogCounter');
+var frogs;
+const TIMER = document.querySelector('#timer');
+var gamePlaying = true;
+var timer = 0
+var frogCounter = 0
 
 window.addEventListener('DOMContentLoaded', () => {
     //createWalls(); 
     createPillers(); 
     createFrogs(); 
-    setupListeners()
+    setupListeners();
+    psedoDraw();
 });
 
+function psedoDraw() {
+    setTimeout(() => {
+        if (gamePlaying){
+            timer++
+            TIMER.setAttribute('value', "Time: " + timer);
+            if (frogCounter == FrogPlacment.length){
+                gamePlaying = false
+            }
+        } 
+        if (!gamePlaying){
+            gameOverUi(timer);
+        }
+        psedoDraw();
+    }, 1000);
+}
+
 function setupListeners() {
-    const FROGS = SCENE.querySelectorAll('.clickable');
-    console.log(FROGS)
-    FROGS.forEach(frog => frog.addEventListener('click', FrogClicked));
+    frogs = SCENE.querySelectorAll('.clickable'); // update after frogs are created
+    frogs.forEach(frog => {
+        frog.addEventListener('click', FrogClicked, {
+            passive: true,
+            once: true,
+        });
+    });
 }
 
 function FrogClicked(evt) {
@@ -65,14 +90,9 @@ function FrogClicked(evt) {
     console.log(frogRotation)
     frog.setAttribute('animation', {
         property: 'scale',
-        to: '0, 0, 0',
+        to: '1, 0, 1',
         dur: 300,
         easing: 'easeInOutQuad',
-        property: 'rotation',
-        to: '-90, -180, frogRotation.z',
-        dur: 300,
-        easing: 'easeInOutQuad',
-
     });
     setTimeout(() => {
         console.log("clicked ")
@@ -129,6 +149,7 @@ function createFrogs(){
         createFrog(FrogPlacment[i][1], FrogPlacment[i][0], FrogPlacment[i][2]-180)
     }
 }
+
 function createFrog(xCord, zCord, rotationVal){
     const FROG = document.createElement('a-entity');
     FROG.setAttribute('gltf-model', '#frog');
@@ -136,11 +157,12 @@ function createFrog(xCord, zCord, rotationVal){
     FROG.setAttribute('rotation', `0 ${rotationVal}  0`);
     FROG.setAttribute('scale','1 1 1');
     FROG.setAttribute('class', 'clickable')
-    FROG.addEventListener('click', FrogClicked);
     SCENE.appendChild(FROG);
 }
 
-
+function gameOverUi(timer){
+    const FROG = document.createElement('a-entity');
+}
 
 
 //const model = document.querySelector('#wallingAway');
