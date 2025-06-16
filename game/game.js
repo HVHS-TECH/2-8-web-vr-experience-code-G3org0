@@ -31,12 +31,12 @@ let globalShift = {
 ]);
 
 const FrogPlacment = ([
-    [1,1,0], 
-    [1,4,0], 
-    [2.5,9,0], 
+    //[1,1,0], 
+    //[1,4,0], 
+    //[2.5,9,0], 
     [4,3,0],
-    [4.5,2.5,180],
-    [4.5,6,0],
+    //[4.5,2.5,180],
+    //[4.5,6,0],
 ]);
 
 const SCENE = document.querySelector('a-scene');
@@ -57,17 +57,17 @@ window.addEventListener('DOMContentLoaded', () => {
 
 function psedoDraw() {
     setTimeout(() => {
+        if (!gamePlaying){
+            gameOverUi(timer);
+        }
         if (gamePlaying){
             timer++
             TIMER.setAttribute('value', "Time: " + timer);
             if (frogCounter == FrogPlacment.length){
                 gamePlaying = false
             }
+            psedoDraw();
         } 
-        if (!gamePlaying){
-            gameOverUi(timer);
-        }
-        psedoDraw();
     }, 1000);
 }
 
@@ -161,7 +161,12 @@ function createFrog(xCord, zCord, rotationVal){
 }
 
 function gameOverUi(timer){
-    const FROG = document.createElement('a-entity');
+    const GOTEXT = document.querySelector('#gameOverText');
+    const FTTEXT = document.querySelector('#finalTimeText');
+    FTTEXT.setAttribute('opacity', '1')
+    FTTEXT.setAttribute('value', 'FinalTime: ' +  timer)
+    GOTEXT.setAttribute('opacity', '1')
+    console.log("damn")
 }
 
 

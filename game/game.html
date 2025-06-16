@@ -15,24 +15,28 @@
 <body>
     <a-scene restitution: 0.1 inspector-plugin-recast>
         <a-assets>
-            <img id="groundText" src="/files/Gothic.jpg">
+            <img id="groundTexture" src="/files/Gothic.jpg">
             <img id="skyTexture" src="/files/Gothic.jpg">
+            <img id="gameOverTexture" src="./gameOver.png">
             <a-asset-item id="wall1" src="/files/mazeParts/wall1.glb"></a-asset-item>
             <a-asset-item id="piller" src="/files/mazeParts/piller.glb"></a-asset-item>
             <a-asset-item id = "frog" src = "/files/frog_statue.glb"></a-asset-item>
         </a-assets>
     
-        <a-plane src="#groundText" rotation="-90 0 0" scale="600 600 600" static-bodyshadow></a-plane>
+        <a-plane src="#groundTexture" rotation="-90 0 0" scale="600 600 600" static-bodyshadow></a-plane>
 
         <!-- Lighting -->
         <a-light type="directional" position="2 4 3" intensity="1"></a-light>
         <a-light type="ambient" intensity="1"></a-light>
         <a-sky src="#skyTexture"></a-sky>    
+
         <!-- Camera -->
         <a-entity id="rig" position="0 0 0" movement-controls="constrainToNavMesh: true;speed:0.5;">
             <a-entity camera id="camera" position="0 1.6 3" look-controls extended-wasd-controls>
                 <a-text value="Frogs: 0/6" position = "0.7 0.7 -1" color="white" id="frogCounter"></a-text>
                 <a-text value="Time: 0" position="-1.7 0.7 -1" color="white" id="timer"></a-text>
+                <a-text value="Game Over" position="-0.5 0.4 -1" color="white" opacity="0" id="gameOverText"></a-text>
+                <a-text value="Final Time: " position="-0.5 0 -1" color="white" opacity="0" id="finalTimeText"></a-text>
                 <a-cursor fuse="false" raycaster= "objects: .clickable" ></a-cursor>
             </a-entity>
         </a-entity>
