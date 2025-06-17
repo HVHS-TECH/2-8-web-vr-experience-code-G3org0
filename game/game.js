@@ -31,41 +31,37 @@ let globalShift = {
 ]);
 
 const FrogPlacment = ([
-    //[1,1,0], 
-    //[1,4,0], 
-    //[2.5,9,0], 
+    [1,1,0], 
+    [1,4,0], 
+    [2.5,9,0], 
     [4,3,0],
-    //[4.5,2.5,180],
-    //[4.5,6,0],
+    [4.5,2.5,180],
+    [4.5,6,0],
 ]);
 
 const SCENE = document.querySelector('a-scene');
 const FROGCOUNTER = document.querySelector('#frogCounter');
-var frogs;
 const TIMER = document.querySelector('#timer');
+var frogs;
 var gamePlaying = true;
 var timer = 0
 var frogCounter = 0
 
 window.addEventListener('DOMContentLoaded', () => {
     //createWalls(); 
-    createPillers(); 
+    //createPillers(); 
     createFrogs(); 
+    
     setupListeners();
+    FROGCOUNTER.setAttribute('value', "");
     psedoDraw();
 });
 
 function psedoDraw() {
     setTimeout(() => {
-        if (!gamePlaying){
-            gameOverUi(timer);
-        }
         if (gamePlaying){
             timer++
-            TIMER.setAttribute('value', "Time: " + timer);
-            if (frogCounter == FrogPlacment.length){
-                gamePlaying = false
-            }
+            TIMER.setAttribute('value', "");
             psedoDraw();
         } 
     }, 1000);
@@ -83,11 +79,12 @@ function setupListeners() {
 
 function FrogClicked(evt) {
     var frog = evt.target
-    var frogRotation = (frog.getAttribute('rotation'))
-    console.log(frogRotation)
     frogCounter ++;
-    FROGCOUNTER.setAttribute('value', "Frogs: " + frogCounter + "/" + FrogPlacment.length);
-    console.log(frogRotation)
+    FROGCOUNTER.setAttribute('value', "");
+    if (frogCounter == FrogPlacment.length){
+            gamePlaying = false
+            gameOverUi(timer);
+        }
     frog.setAttribute('animation', {
         property: 'scale',
         to: '1, 0, 1',
@@ -163,9 +160,11 @@ function createFrog(xCord, zCord, rotationVal){
 function gameOverUi(timer){
     const GOTEXT = document.querySelector('#gameOverText');
     const FTTEXT = document.querySelector('#finalTimeText');
-    FTTEXT.setAttribute('opacity', '1')
-    FTTEXT.setAttribute('value', 'FinalTime: ' +  timer)
+    TIMER.setAttribute('opacity', '0')
+    FROGCOUNTER.setAttribute('opacity', '0')
     GOTEXT.setAttribute('opacity', '1')
+    FTTEXT.setAttribute('opacity', '1')
+    FTTEXT.setAttribute('value', "")
     console.log("damn")
 }
 
