@@ -31,11 +31,11 @@ let globalShift = {
 ]);
 
 const FrogPlacment = ([
-    [1,1,0], 
-    [1,4,0], 
-    [2.5,9,0], 
-    [4,3,0],
-    [4.5,2.5,180],
+    //[1,1,0], 
+    //[1,4,0], 
+    //[2.5,9,0], 
+    //[4,3,0],
+    //[4.5,2.5,180],
     [4.5,6,0],
 ]);
 
@@ -48,12 +48,12 @@ var timer = 0
 var frogCounter = 0
 
 window.addEventListener('DOMContentLoaded', () => {
-    //createWalls(); 
-    //createPillers(); 
+    createWalls(); 
+    createPillers(); 
     createFrogs(); 
     
     setupListeners();
-    FROGCOUNTER.setAttribute('value', "");
+    FROGCOUNTER.setAttribute('value', "Frogs: " + frogCounter + '/' + FrogPlacment.length);
     psedoDraw();
 });
 
@@ -61,7 +61,8 @@ function psedoDraw() {
     setTimeout(() => {
         if (gamePlaying){
             timer++
-            TIMER.setAttribute('value', "");
+            console.log("fff")
+            TIMER.setAttribute('value', "Time: " + Math.floor(timer/60) + ":" + timer % 60);
             psedoDraw();
         } 
     }, 1000);
@@ -80,7 +81,7 @@ function setupListeners() {
 function FrogClicked(evt) {
     var frog = evt.target
     frogCounter ++;
-    FROGCOUNTER.setAttribute('value', "");
+    FROGCOUNTER.setAttribute('value', "Frogs: " + frogCounter + '/' + FrogPlacment.length);
     if (frogCounter == FrogPlacment.length){
             gamePlaying = false
             gameOverUi(timer);
@@ -164,7 +165,7 @@ function gameOverUi(timer){
     FROGCOUNTER.setAttribute('opacity', '0')
     GOTEXT.setAttribute('opacity', '1')
     FTTEXT.setAttribute('opacity', '1')
-    FTTEXT.setAttribute('value', "")
+    FTTEXT.setAttribute('value', "Time: " + Math.floor(timer/60) + ":" + timer % 60);
     console.log("damn")
 }
 
