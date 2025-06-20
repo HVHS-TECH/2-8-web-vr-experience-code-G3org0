@@ -16,8 +16,7 @@
 <body>
     <a-scene restitution: 0.1 inspector-plugin-recast fog="type: exponential; density: 0.05; far: 1; color: #281f2b">
         <a-assets>
-            <img id="groundTexture" src="/files/Gothic.jpg">
-            <img id="skyTexture" src="/files/Gothic.jpg">
+            <a-asset-item id="nav" src="./navmesh.gltf"></a-asset-item>
 
             <a-asset-item id="wall1" src="/files/mazeParts/wall1.glb"></a-asset-item>
             <a-asset-item id="piller" src="/files/mazeParts/piller.glb"></a-asset-item>
@@ -28,12 +27,19 @@
         <!-- Lighting -->
         <a-light type="directional" position="2 4 3" intensity="1"></a-light>
         <a-light type="ambient" intensity="1"></a-light>
-        <a-sky src="#skyTexture"></a-sky>    
-
-
-        <!--<a-gltf-model id = "wallingaway" position src= #floor gltf-model></a-gltf-model>-->
-
-        <!-- Camera -->
+        <a-sky color="#87CEEB"></a-sky> <!-- light sky blue -->
+   
+        
+        <a-gltf-model 
+            src="#nav" 
+            nav-mesh
+            position="0 0 0" 
+            rotation = "0 0 0"
+            visible="false"
+        ></a-gltf-model>        
+    
+    <!-- Camera 
+         -->
         <a-entity id="rig" rotation = "0 270 0" position="0 0 0.7" movement-controls="constrainToNavMesh: true;speed:0.5;">
             <a-entity camera id="camera" position="0 1.6 3" look-controls extended-wasd-controls>
                 <a-text value="Frogs: 0/6" position = "0.7 0.7 -1" color="white" id="frogCounter"></a-text>

@@ -37,7 +37,7 @@
                 HIGHSCORE.textContent = "Old Record: " + Math.floor(highScore/60) + ":" + highScore % 60;
                 localStorage.setItem('highScore', currentScore)
             } else {
-                CURRENTSCORE.textContent = ("Time: " + currentScore);
+                CURRENTSCORE.textContent = ("Time: " + Math.floor(currentScore/60) + ":" + currentScore % 60);
                 HIGHSCORE.textContent = "Lowest time (Time: " + highScore + ")";
                 if ((highScore == null) ){
                     localStorage.setItem('highScore', currentScore)

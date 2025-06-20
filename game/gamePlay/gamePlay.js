@@ -1,5 +1,6 @@
 
 let wallCords = 6
+let nav = false
 
 let scale = {
   xMult: 1, 
@@ -12,13 +13,11 @@ let scale = {
   yPlac: 2}
 
 let globalShift = {
-    x: 0,
-    z: 5,
+    x: 63,
+    z: 65,
     y: 0
 }
 
-
-  
   const wallPlacment = ([
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], 
@@ -85,12 +84,6 @@ function setupListeners() {
 
 function FrogClicked(evt) {
     var frog = evt.target
-    frogCounter ++;
-    FROGCOUNTER.setAttribute('value', "Frogs: " + frogCounter + '/' + FrogPlacment.length);
-    if (frogCounter == FrogPlacment.length){
-            gamePlaying = false
-            gameOver(timer);
-        }
     frog.setAttribute('animation', {
         property: 'scale',
         to: '1, 0, 1',
@@ -101,7 +94,13 @@ function FrogClicked(evt) {
         console.log("clicked ")
         SCENE.removeChild(frog);
         frog.destroy()
-    }, 10);
+        frogCounter ++;
+        FROGCOUNTER.setAttribute('value', "Frogs: " + frogCounter + '/' + FrogPlacment.length);
+        if (frogCounter == FrogPlacment.length){
+                gamePlaying = false
+                gameOver(timer);
+            }
+    }, 300);
 }
 
 function createWalls(){
@@ -119,16 +118,29 @@ function createWalls(){
 }
 
 function createWall(xCord, zCord, rotationVal){
-    const WALL = document.createElement('a-gltf-model');
-    if (rotationVal == 0){
-        WALL.setAttribute('position', `${xCord*scale.xPlac-globalShift.x} ${globalShift.y} ${zCord*scale.xPlac*0.5-globalShift.z}`);
+    if(!nav){
+        const WALL = document.createElement('a-gltf-model');
+        if (rotationVal == 0){
+            WALL.setAttribute('position', `${xCord*scale.xPlac-globalShift.x} ${globalShift.y} ${zCord*scale.xPlac*0.5-globalShift.z}`);
+        } else {
+            WALL.setAttribute('position', `${(xCord-0.5)*scale.xPlac-globalShift.x} ${globalShift.y} ${zCord*scale.xPlac*0.5-globalShift.z}`);
+        }
+        WALL.setAttribute('src','#wall1');
+        WALL.setAttribute('scale', `${scale.xMult} ${scale.yMult} ${scale.zMult}`);
+        WALL.setAttribute('rotation', `0 ${rotationVal}  0`);
+        SCENE.appendChild(WALL);
     } else {
-        WALL.setAttribute('position', `${(xCord-0.5)*scale.xPlac-globalShift.x} ${globalShift.y} ${zCord*scale.xPlac*0.5-globalShift.z}`);
+        const BLOCK = document.createElement('a-entity');
+        if (rotationVal == 0){
+            BLOCK.setAttribute('position', `${xCord*scale.xPlac-globalShift.x} ${globalShift.y + 6} ${zCord*scale.xPlac*0.5-globalShift.z}`);
+        } else {
+            BLOCK.setAttribute('position', `${(xCord-0.5)*scale.xPlac-globalShift.x} ${globalShift.y + 6} ${zCord*scale.xPlac*0.5-globalShift.z }`);
+        }
+        
+        BLOCK.setAttribute('geometry',"primitive: box; width: 14.1; height: 12; depth: 3;");
+        BLOCK.setAttribute('rotation', `0 ${rotationVal}  0`);
+        SCENE.appendChild(BLOCK);
     }
-    WALL.setAttribute('src','#wall1');
-    WALL.setAttribute('scale', `${scale.xMult} ${scale.yMult} ${scale.zMult}`);
-    WALL.setAttribute('rotation', `0 ${rotationVal}  0`);
-    SCENE.appendChild(WALL);
 }
 
 function createPillers(){
@@ -140,19 +152,31 @@ function createPillers(){
     }
 }
 function createPiller(xCord, zCord){
-    const PILLER = document.createElement('a-gltf-model');
-    PILLER.setAttribute('position', `${(xCord - 0.5)*scale.xPlac-globalShift.x} ${globalShift.y} ${zCord*scale.xPlac-globalShift.z}`);
-    PILLER.setAttribute('src','#piller');
-    PILLER.setAttribute('scale', `${scale.xMult} ${scale.yMult} ${scale.zMult}`);
-    SCENE.appendChild(PILLER);
+    if(!nav){
+        const PILLER = document.createElement('a-gltf-model');
+        PILLER.setAttribute('position', `${(xCord - 0.5)*scale.xPlac-globalShift.x} ${globalShift.y} ${zCord*scale.xPlac-globalShift.z}`);
+        PILLER.setAttribute('src','#piller');
+        PILLER.setAttribute('scale', `${scale.xMult} ${scale.yMult} ${scale.zMult}`);
+        SCENE.appendChild(PILLER);
+    } 
 }
 
 function createFloors(){
-    for (let row = 0; row < (wallPlacment.length + 1)/2; row++){
-        console.log("Max Row :  " + (wallPlacment.length + 1)/2)
-        for (let coloumn = 0; coloumn < wallPlacment[0].length + 1; coloumn++ ){
-            createFloor(coloumn, row);
+    if (!nav){
+        for (let row = 0; row < (wallPlacment.length + 1)/2; row++){
+            console.log("Max Row :  " + (wallPlacment.length + 1)/2)
+            for (let coloumn = 0; coloumn < wallPlacment[0].length + 1; coloumn++ ){
+                createFloor(coloumn, row);
+            }
         }
+    } else {
+        const FLOOR = document.createElement('a-entity');
+        FLOOR.setAttribute('geometry',"primitive: plane; width: 115; height: 74;");
+        FLOOR.setAttribute('rotation', '-90 0 0'); 
+        FLOOR.setAttribute('position', '0 0 -30'); 
+
+        SCENE.appendChild(FLOOR);
+
     }
 }
 function createFloor(xCord, zCord){
@@ -170,13 +194,15 @@ function createFrogs(){
 }
 
 function createFrog(xCord, zCord, rotationVal){
-    const FROG = document.createElement('a-entity');
-    FROG.setAttribute('gltf-model', '#frog');
-    FROG.setAttribute('position', `${(xCord - 0.5)*scale.xPlac-globalShift.x} ${0} ${zCord*scale.xPlac-globalShift.z}`);
-    FROG.setAttribute('rotation', `0 ${rotationVal}  0`);
-    FROG.setAttribute('scale','1 1 1');
-    FROG.setAttribute('class', 'clickable')
-    SCENE.appendChild(FROG);
+    if(!nav){
+        const FROG = document.createElement('a-gltf-model');
+        FROG.setAttribute('gltf-model', '#frog');
+        FROG.setAttribute('position', `${(xCord - 0.5)*scale.xPlac-globalShift.x} ${0} ${zCord*scale.xPlac-globalShift.z}`);
+        FROG.setAttribute('rotation', `0 ${rotationVal}  0`);
+        FROG.setAttribute('scale','1 1 1');
+        FROG.setAttribute('class', 'clickable')
+        SCENE.appendChild(FROG);
+    }
 }
 
 function gameOver(timer){
@@ -184,15 +210,8 @@ function gameOver(timer){
     console.log(JSON.parse(localStorage.getItem("currentScore")));
     setTimeout(() => {
         window.location.href = "../gameOver/gameOver.html"
-    }, 3000);
-    //const GOTEXT = document.querySelector('#gameOverText');
-    //const FTTEXT = document.querySelector('#finalTimeText');
-    //TIMER.setAttribute('opacity', '0')
-    //FROGCOUNTER.setAttribute('opacity', '0')
-    //GOTEXT.setAttribute('opacity', '1')
-    //FTTEXT.setAttribute('opacity', '1')
-    //FTTEXT.setAttribute('value', "Time: " + Math.floor(timer/60) + ":" + timer % 60);
-    //console.log("damn")
+    }, 300);
+
 }
 
 
