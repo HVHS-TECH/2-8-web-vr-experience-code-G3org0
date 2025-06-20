@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8" >
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
         <title>Codespace Github</title>
         <link href="index.css" rel="stylesheet" type="text/css" />
         <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
@@ -13,12 +13,24 @@
     </head>
 
     <body>
-        <img id="bg" src="files/backGround.png" alt = "homeBg"> 
+        <img id="bg" src="/backGround.png" alt = "homeBg"> 
         <div>
-            <h1 id = "title" class = "overlapButton"  style= "top: 25%;" >Title</h1>
-            <button class = "overlapButton" style= "top: 43%;" onclick= "window.location.href = '/game/game.html'" >play</button>
+            <h1 id = "title" class = "overlapButton">Title</h1>
+            <button class = "overlapButton" style= "top: 43%;" onclick= "window.location.href = '/game/gamePlay/gamePlay.html'" >play</button>
             <button class = "overlapButton" style= "top: 53%;" onclick=" window.location.href = '/controls/controls.html'">controls</button>
             <button class = "overlapButton" style= "top: 63%;" onclick=" window.location.href = '/credits/credits.html'">credits</button>
+            <button class = "overlapButton" style= "top: 73%;" onclick=" window.location.href = '/game/gameOver/gameOver.html'">Shortcut</button>
+            <button class = "overlapButton" style= "top: 83%;" onclick= "resetStorage()">resetStorage</button>
         </div>
     </body>
+
+    <script>
+        window.resetStorage  = resetStorage;
+        
+        function resetStorage(){
+            console.log("reset")
+            localStorage.setItem("highScore", null);
+            localStorage.setItem("currentScore", null);
+        }
+    </script>
 </html>
