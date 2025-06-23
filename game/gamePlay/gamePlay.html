@@ -9,36 +9,35 @@
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
     <script src="https://rawgit.com/donmccurdy/aframe-extras/v2.1.1/dist/aframe-extras.loaders.min.js"></script>
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.1/dist/aframe-physics-system.min.js"></script>
-
 </head>
 
 
 <body>
-    
+
     <a-scene restitution: 0.1 inspector-plugin-recast fog="type: exponential; density: 0.05; far: 1; color: #281f2b">
         <a-assets>
             <a-asset-item id="nav" src="./navmesh.gltf"></a-asset-item>
-            
+
             <a-asset-item id="wall1" src="/files/mazeParts/wall1.glb"></a-asset-item>
             <a-asset-item id="piller" src="/files/mazeParts/piller.glb"></a-asset-item>
             <a-asset-item id="floor" src="/files/mazeParts/floor.glb"></a-asset-item>
             <a-asset-item id = "frog" src = "/files/frog_statue.glb"></a-asset-item>
         </a-assets>
-        
+
         <!-- Lighting -->
         <a-light type="directional" position="2 4 3" intensity="1"></a-light>
         <a-light type="ambient" intensity="1"></a-light>
         <a-sky color="#87CEEB"></a-sky> <!-- light sky blue -->
-        
-        
+
+
         <a-gltf-model 
         src="#nav" 
         nav-mesh
         position="0 0 0" 
         rotation = "0 0 0"
         visible="false"
-        ></a-gltf-model>        
-        
+        ></a-gltf-model>
+
         <!-- Camera 
         -->
         <a-entity id="rig" rotation = "0 270 0" position="0 0 0.7" movement-controls="constrainToNavMesh: true;speed:0.5;">
@@ -47,7 +46,7 @@
             </a-entity>
         </a-entity>
     </a-scene>
-    
+
     <script src="./gamePlay.js"></script>
     <h1 class = "hud" id="timer" style= "top: 8%; left: 13%;">Time: 0:0</h1>
     <h1 class = "hud" id="frog-counter" style= "top: 8%; left: 50%;">Frogs: 0/6</h1>
