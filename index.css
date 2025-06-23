@@ -1,3 +1,7 @@
+:root {
+  --textSizeMult: 1.5;
+}
+
 /*Border*/
 *{
   margin: 0;
@@ -14,17 +18,18 @@
  }
 
  #title {
-  font-size: 56px;
+  font-size: calc(var(--textSizeMult)*70px);
+  font-family: American Typewriter, serif;
   top: 25%;
  }
-
  .overlapButton {
-  left: 25%;
+  font-family: Andale Mono, monospace;
+  left: 350px;
   display: block;
   position: absolute;
   transform: translate(-50%, -50%);
   padding: 10px 20px;
-  font-size: 36px;
+  font-size: calc(var(--textSizeMult)*30px);
   color: #ffdc91;
   background-color: transparent;
   outline: none;

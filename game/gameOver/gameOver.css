@@ -4,6 +4,8 @@
   --scoresInt: 8%;
   --scoresA: 32%;
   --buttonInt: 12%;
+
+  --textSizeMult: 0.9;
 }
 
 /*Border*/
@@ -20,25 +22,27 @@
 }
 
 #title {
-  font-size: 130px;
+  font-size: calc(var(--textSizeMult)*130px);
   top:  var(--titleB);
 }
  
 #highScore {
-   font-size: 60px;
+   font-size: calc(var(--textSizeMult)*60px);
    top: calc(var(--titleB) + var(--titleA) + var(--scoresInt));
 }
 
 #currentScore {
-  font-size: 60px;
+   font-size: calc(var(--textSizeMult)*60px);
   top: calc(var(--titleB) + var(--titleA) + var(--scoresInt) * 2);
 }
 
 #restart {
+  font-size: calc(var(--textSizeMult)*40px);
   top: calc(var(--titleB) + var(--titleA) + var(--scoresInt) * 2 + var(--buttonInt));
 }
 
 #menu {
+  font-size: calc(var(--textSizeMult)*40px);
   top: calc(var(--titleB) + var(--titleA) + var(--scoresInt) * 2 + var(--buttonInt) * 2);
 }
 
