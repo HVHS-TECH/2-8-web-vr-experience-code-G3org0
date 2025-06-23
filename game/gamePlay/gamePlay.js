@@ -43,22 +43,27 @@ const FrogPlacment = ([
     [4.5,6,0],
 ]);
 
-const SCENE = document.querySelector('a-scene');
-const FROGCOUNTER = document.querySelector('#frogCounter');
-const TIMER = document.querySelector('#timer');
+var SCENE;
+var FROGCOUNTER;
+var TIMER;
+
 var frogs;
 var gamePlaying = true;
 var timer = 0
 var frogCounter = 0
 
 window.addEventListener('DOMContentLoaded', () => {
+    SCENE = document.querySelector('a-scene');
+    FROGCOUNTER = document.getElementById("frog-counter")
+    TIMER = document.getElementById("timer");
+    
     createWalls(); 
     createPillers(); 
     createFloors(); 
     createFrogs(); 
     
     setupListeners();
-    FROGCOUNTER.setAttribute('value', "Frogs: " + frogCounter + '/' + FrogPlacment.length);
+    FROGCOUNTER.innerHTML = "Frogs: " + frogCounter + '/' + FrogPlacment.length;
     psedoDraw();
 });
 
@@ -66,7 +71,8 @@ function psedoDraw() {
     setTimeout(() => {
         if (gamePlaying){
             timer++
-            TIMER.setAttribute('value', "Time: " + Math.floor(timer/60) + ":" + timer % 60);
+            TIMER.innerHTML = "Time: " + Math.floor(timer/60) + ":" + timer % 60;
+            console.log(TIMER)
             psedoDraw();
         } 
     }, 1000);
@@ -95,7 +101,7 @@ function FrogClicked(evt) {
         SCENE.removeChild(frog);
         frog.destroy()
         frogCounter ++;
-        FROGCOUNTER.setAttribute('value', "Frogs: " + frogCounter + '/' + FrogPlacment.length);
+        FROGCOUNTER.innerHTML = "Frogs: " + frogCounter + '/' + FrogPlacment.length;
         if (frogCounter == FrogPlacment.length){
                 gamePlaying = false
                 gameOver(timer);
